@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kids Games</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            min-height: 100vh;
+        }
+
+        header {
+            background: #4f46e5;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 42px;
+        }
+
+        header p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .game {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+
+        .game:hover {
+            transform: translateY(-8px);
+        }
+
+        .game .emoji {
+            font-size: 55px;
+        }
+
+        .game h3 {
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .game a {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .game a:hover {
+            background: #ee5253;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🎮 Kids Games</h1>
+        <p>Welcome! Choose a game and have fun! 🌈</p>
+    </header>
+
+    <div class="container">
+
+        <h2>📚 Game Categories</h2>
+
+        <div class="games">
+
+            <!-- Math Folder -->
+            <div class="game">
+                <div class="emoji">🔢</div>
+                <h3>Math Games</h3>
+                <p>Learn maths while playing!</p>
+
+                <a href="math/">Play Now</a>
+            </div>
+
+            <!-- Science Folder -->
+            <div class="game">
+                <div class="emoji">🔬</div>
+                <h3>Science Games</h3>
+                <p>Fun science activities for kids.</p>
+
+                <a href="science/">Play Now</a>
+            </div>
+
+            <!-- English Folder -->
+            <div class="game">
+                <div class="emoji">📖</div>
+                <h3>English Games</h3>
+                <p>Improve English with fun games.</p>
+
+                <a href="english/">Play Now</a>
+            </div>
+
+            <!-- Puzzle Folder -->
+            <div class="game">
+                <div class="emoji">🧩</div>
+                <h3>Puzzle Games</h3>
+                <p>Challenge your brain!</p>
+
+                <a href="puzzle/">Play Now</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Kids Games 🎈
+    </footer>
+
+</body>
+</html>
