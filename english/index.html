@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Which Letter Is It?</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game {
+      background: white;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #ff6b6b;
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .instruction {
+      font-size: 22px;
+      color: #555;
+    }
+
+    .letter {
+      font-size: 150px;
+      font-weight: bold;
+      color: #4d96ff;
+      margin: 20px 0;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    button {
+      border: none;
+      padding: 18px;
+      font-size: 30px;
+      font-family: inherit;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #ffd93d;
+      color: #333;
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ffc928;
+    }
+
+    button.correct {
+      background: #6bcb77;
+      color: white;
+    }
+
+    button.wrong {
+      background: #ff6b6b;
+      color: white;
+    }
+
+    #feedback {
+      font-size: 28px;
+      font-weight: bold;
+      min-height: 45px;
+      margin: 20px 0;
+    }
+
+    #nextButton {
+      display: none;
+      background: #845ec2;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .score {
+      font-size: 22px;
+      color: #555;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .letter {
+        font-size: 110px;
+      }
+
+      button {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game">
+
+    <h1>🌈 Which Letter Is It? 🌈</h1>
+
+    <div class="instruction">
+      Look at the letter and choose the correct answer!
+    </div>
+
+    <div class="letter" id="letter">A</div>
+
+    <div class="choices" id="choices"></div>
+
+    <div id="feedback"></div>
+
+    <button id="nextButton" onclick="nextQuestion()">
+      Next Letter ➡️
+    </button>
+
+    <div class="score">
+      ⭐ Score: <span id="score">0</span>
+    </div>
+
+  </div>
+
+  <script>
+
+    const letters = [
+      "A", "B", "C", "D", "E",
+      "F", "G", "H", "I", "J",
+      "K", "L", "M", "N", "O",
+      "P", "Q", "R", "S", "T",
+      "U", "V", "W", "X", "Y", "Z"
+    ];
+
+    let currentLetter;
+    let score = 0;
+
+    function randomLetter() {
+      return letters[Math.floor(Math.random() * letters.length)];
+    }
+
+    function createQuestion() {
+
+      currentLetter = randomLetter();
+
+      document.getElementById("letter").textContent = currentLetter;
+
+      const choicesContainer = document.getElementById("choices");
+      choicesContainer.innerHTML = "";
+
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextButton").style.display = "none";
+
+      // Create choices
+      let choices = [currentLetter];
+
+      while (choices.length < 4) {
+        let random = randomLetter();
+
+        if (!choices.includes(random)) {
+          choices.push(random);
+        }
+      }
+
+      // Shuffle choices
+      choices.sort(() => Math.random() - 0.5);
+
+      choices.forEach(letter => {
+
+        const button = document.createElement("button");
+
+        button.textContent = letter;
+
+        button.onclick = function() {
+          checkAnswer(letter, button);
+        };
+
+        choicesContainer.appendChild(button);
+      });
+    }
+
+    function checkAnswer(answer, clickedButton) {
+
+      const buttons = document.querySelectorAll(".choices button");
+
+      // Stop clicking multiple times
+      buttons.forEach(button => {
+        button.disabled = true;
+      });
+
+      if (answer === currentLetter) {
+
+        clickedButton.classList.add("correct");
+
+        document.getElementById("feedback").textContent =
+          "🎉 Great job! That's correct!";
+
+        document.getElementById("feedback").style.color = "#2e9d48";
+
+        score++;
+
+        document.getElementById("score").textContent = score;
+
+      } else {
+
+        clickedButton.classList.add("wrong");
+
+        document.getElementById("feedback").textContent =
+          "😊 Nice try! The correct letter is " + currentLetter;
+
+        document.getElementById("feedback").style.color = "#ff6b6b";
+      }
+
+      document.getElementById("nextButton").style.display = "block";
+    }
+
+    function nextQuestion() {
+      createQuestion();
+    }
+
+    // Start the game
+    createQuestion();
+
+  </script>
+
+</body>
+</html>
