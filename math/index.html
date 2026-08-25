@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Kids Math Adventure</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -14,502 +16,1637 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       font-family: "Comic Sans MS", Arial, sans-serif;
-      background: linear-gradient(135deg, #74ebd5, #9face6);
+
+      background:
+        linear-gradient(
+          135deg,
+          #74ebd5,
+          #9face6
+        );
+
+      color: #333;
+    }
+
+
+    /* =====================================
+       PAGE LAYOUT
+    ====================================== */
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: stretch;
+    }
+
+
+    /* =====================================
+       MAIN GAME AREA
+    ====================================== */
+
+    .main-area {
+      flex: 1;
+
       display: flex;
       justify-content: center;
       align-items: center;
+
+      padding: 30px 20px;
     }
+
+
+    /* =====================================
+       GAME BOX
+    ====================================== */
 
     .game {
-      width: 95%;
-      max-width: 650px;
+
+      width: 100%;
+      max-width: 700px;
+
       background: white;
+
       padding: 30px;
+
       border-radius: 30px;
+
       text-align: center;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25);
+
+      border: 5px solid rgba(255,255,255,0.7);
     }
+
+
+    /* =====================================
+       TITLE
+    ====================================== */
 
     h1 {
+
       color: #ff6b6b;
+
       font-size: 40px;
+
       margin: 5px 0;
+
+      text-shadow:
+        2px 2px 0 #ffd1d1;
     }
 
+
     .subtitle {
+
       font-size: 20px;
+
       color: #555;
+
       margin-bottom: 20px;
     }
 
+
+    /* =====================================
+       OPERATIONS
+    ====================================== */
+
     .operations {
+
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 10px;
+
       margin-bottom: 25px;
     }
 
+
     .operation-btn {
+
       border: none;
+
       padding: 12px 5px;
+
       border-radius: 15px;
-      font-size: 20px;
+
+      font-size: 18px;
+
       font-family: inherit;
+
       font-weight: bold;
+
       cursor: pointer;
+
       background: #eee;
+
       transition: 0.2s;
+
+      box-shadow:
+        0 4px 0 #bbb;
     }
+
 
     .operation-btn:hover {
-      transform: scale(1.05);
+
+      transform:
+        translateY(-3px)
+        scale(1.03);
     }
+
 
     .operation-btn.active {
+
       background: #845ec2;
+
       color: white;
+
+      box-shadow:
+        0 4px 0 #5d3c91;
     }
+
+
+    /* =====================================
+       QUESTION BOX
+    ====================================== */
 
     .question-box {
-      background: #f7f7ff;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f7f7ff,
+          #eef2ff
+        );
+
       border-radius: 25px;
+
       padding: 25px;
+
+      border: 3px solid #e2e2ff;
     }
+
 
     .question {
+
       font-size: 60px;
+
       font-weight: bold;
+
       color: #4d96ff;
+
       margin: 15px 0;
+
+      text-shadow:
+        2px 2px 0 #d6e5ff;
     }
+
 
     input {
+
       width: 80%;
+
       max-width: 300px;
+
       padding: 15px;
+
       font-size: 30px;
+
       text-align: center;
+
       border: 3px solid #4d96ff;
+
       border-radius: 15px;
+
       outline: none;
+
       font-family: inherit;
     }
+
+
+    input:focus {
+
+      box-shadow:
+        0 0 12px rgba(77,150,255,0.5);
+    }
+
+
+    /* =====================================
+       BUTTONS
+    ====================================== */
 
     .submit-btn {
+
       display: block;
+
       width: 80%;
+
       max-width: 300px;
+
       margin: 15px auto;
+
       padding: 15px;
+
       border: none;
+
       border-radius: 15px;
+
       background: #6bcb77;
+
       color: white;
-      font-size: 24px;
+
+      font-size: 22px;
+
       font-family: inherit;
+
       font-weight: bold;
+
       cursor: pointer;
+
+      box-shadow:
+        0 5px 0 #479952;
     }
+
 
     .submit-btn:hover {
+
       background: #55b963;
-      transform: scale(1.03);
+
+      transform:
+        translateY(-2px);
     }
 
+
+    .submit-btn:disabled {
+
+      opacity: 0.6;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+
     #feedback {
+
       min-height: 40px;
-      font-size: 24px;
+
+      font-size: 22px;
+
       font-weight: bold;
+
       margin: 10px;
     }
 
-    .stats {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-      font-size: 20px;
+
+    .next-btn {
+
+      display: none;
+
+      width: 80%;
+
+      max-width: 300px;
+
+      margin: 10px auto;
+
+      padding: 15px;
+
+      border: none;
+
+      border-radius: 15px;
+
+      background: #ff9f1c;
+
+      color: white;
+
+      font-size: 22px;
+
+      font-family: inherit;
+
       font-weight: bold;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 5px 0 #c87500;
     }
+
+
+    .next-btn:hover {
+
+      background: #ed8d00;
+
+      transform:
+        translateY(-2px);
+    }
+
+
+    /* =====================================
+       STATS
+    ====================================== */
+
+    .stats {
+
+      display: flex;
+
+      justify-content: space-around;
+
+      margin-top: 20px;
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+    }
+
 
     .score {
       color: #ff9f1c;
     }
 
+
     .streak {
       color: #e63946;
     }
+
 
     .question-number {
       color: #845ec2;
     }
 
-    .next-btn {
-      display: none;
-      width: 80%;
-      max-width: 300px;
-      margin: 10px auto;
-      padding: 15px;
-      border: none;
-      border-radius: 15px;
-      background: #ff9f1c;
-      color: white;
-      font-size: 22px;
-      font-family: inherit;
-      font-weight: bold;
-      cursor: pointer;
-    }
+
+    /* =====================================
+       RESTART
+    ====================================== */
 
     .restart-btn {
+
       margin-top: 20px;
+
       padding: 12px 25px;
+
       border: none;
+
       border-radius: 15px;
+
       background: #ff6b6b;
+
       color: white;
+
       font-size: 18px;
+
       font-family: inherit;
+
       cursor: pointer;
+
+      box-shadow:
+        0 4px 0 #c94444;
     }
 
-    @media (max-width: 500px) {
+
+    .restart-btn:hover {
+
+      background: #ed5555;
+
+      transform:
+        translateY(-2px);
+    }
+
+
+    /* =================================================
+       RIGHT COLORFUL SIDEBAR
+    ================================================== */
+
+    .sidebar {
+
+      width: 270px;
+
+      min-height: 100vh;
+
+      background:
+        linear-gradient(
+          180deg,
+          #283f91,
+          #1e3275
+        );
+
+      padding: 18px 12px;
+
+      box-shadow:
+        -5px 0 15px rgba(0,0,0,0.2);
+
+      position: sticky;
+
+      top: 0;
+
+      align-self: flex-start;
+    }
+
+
+    /* SIDEBAR TITLE */
+
+    .sidebar-title {
+
+      color: white;
+
+      text-align: center;
+
+      font-size: 27px;
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+
+      text-shadow:
+        2px 3px 0 #17285f;
+    }
+
+
+    /* =====================================
+       GRADE BUTTONS
+    ====================================== */
+
+    .grades {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(6, 1fr);
+
+      gap: 5px;
+
+      margin-bottom: 12px;
+    }
+
+
+    .grade-btn {
+
+      text-decoration: none;
+
+      text-align: center;
+
+      color: white;
+
+      font-size: 19px;
+
+      font-weight: bold;
+
+      padding: 6px 2px;
+
+      border-radius: 9px;
+
+      background:
+        linear-gradient(
+          #fff26a,
+          #d89d00
+        );
+
+      border: 2px solid #fff7a4;
+
+      box-shadow:
+        0 3px 0 #876300;
+
+      text-shadow:
+        1px 2px 0 #765500;
+
+      transition: 0.2s;
+    }
+
+
+    .grade-btn:hover {
+
+      transform:
+        translateY(-3px)
+        scale(1.05);
+    }
+
+
+    /* =====================================
+       NAVIGATION
+    ====================================== */
+
+    .navigation {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 10px;
+    }
+
+
+    .nav-btn {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      min-height: 48px;
+
+      padding: 7px 4px;
+
+      text-decoration: none;
+
+      color: white;
+
+      border-radius: 25px;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      text-align: center;
+
+      border: 3px solid
+        rgba(255,255,255,0.65);
+
+      box-shadow:
+        0 4px 0 rgba(0,0,0,0.4),
+        inset 0 2px 4px
+        rgba(255,255,255,0.5);
+
+      text-shadow:
+        2px 2px 0 rgba(0,0,0,0.4);
+
+      transition: 0.2s;
+    }
+
+
+    .nav-btn:hover {
+
+      transform:
+        translateY(-3px)
+        scale(1.05);
+
+      filter: brightness(1.12);
+    }
+
+
+    /* =====================================
+       NAV COLORS
+    ====================================== */
+
+    .math {
+
+      background:
+        linear-gradient(
+          #54d7ef,
+          #008db7
+        );
+    }
+
+
+    .reading {
+
+      background:
+        linear-gradient(
+          #ff6d68,
+          #d91c1c
+        );
+    }
+
+
+    .word {
+
+      background:
+        linear-gradient(
+          #65df72,
+          #079b2d
+        );
+    }
+
+
+    .lab {
+
+      background:
+        linear-gradient(
+          #e16cf0,
+          #8825b4
+        );
+    }
+
+
+    .puzzles {
+
+      background:
+        linear-gradient(
+          #5894ee,
+          #1a4c9b
+        );
+    }
+
+
+    .stories {
+
+      background:
+        linear-gradient(
+          #ffd65b,
+          #c98b12
+        );
+    }
+
+
+    .elearn {
+
+      background:
+        linear-gradient(
+          #ffae35,
+          #e45c00
+        );
+    }
+
+
+    .quiz {
+
+      background:
+        linear-gradient(
+          #ff6bc3,
+          #d21b7c
+        );
+    }
+
+
+    .work {
+
+      background:
+        linear-gradient(
+          #4ee1e5,
+          #008e9d
+        );
+    }
+
+
+    .paint {
+
+      background:
+        linear-gradient(
+          #ffed62,
+          #dca900
+        );
+    }
+
+
+    .tools {
+
+      background:
+        linear-gradient(
+          #dedede,
+          #707070
+        );
+    }
+
+
+    .skills {
+
+      background:
+        linear-gradient(
+          #72e85d,
+          #249b18
+        );
+    }
+
+
+    /* =====================================
+       MOBILE
+    ====================================== */
+
+    @media (max-width: 900px) {
+
+      .page {
+
+        flex-direction: column;
+      }
+
+
+      .main-area {
+
+        width: 100%;
+
+        padding: 20px 10px;
+      }
+
+
+      .sidebar {
+
+        width: 100%;
+
+        min-height: auto;
+
+        position: relative;
+
+        order: 2;
+      }
+
+
+      .navigation {
+
+        grid-template-columns:
+          repeat(3, 1fr);
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
       h1 {
+
         font-size: 30px;
       }
 
+
       .question {
+
         font-size: 45px;
       }
 
+
       .operations {
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+          1fr 1fr;
       }
 
+
       input {
+
         width: 100%;
       }
+
+
+      .navigation {
+
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+
+      .stats {
+
+        font-size: 17px;
+      }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <div class="game">
 
-    <h1>🧠 Kids Math Adventure 🚀</h1>
+<div class="page">
 
-    <div class="subtitle">
-      Practice Maths and become a Math Star! ⭐
-    </div>
 
-    <!-- Operation Selection -->
-    <div class="operations">
+  <!-- =================================================
+       MAIN GAME
+  ================================================== -->
 
-      <button class="operation-btn active" onclick="setOperation('addition', this)">
-        ➕ Addition
-      </button>
+  <div class="main-area">
 
-      <button class="operation-btn" onclick="setOperation('subtraction', this)">
-        ➖ Subtraction
-      </button>
 
-      <button class="operation-btn" onclick="setOperation('multiplication', this)">
-        ✖️ Multiplication
-      </button>
+    <div class="game">
 
-      <button class="operation-btn" onclick="setOperation('division', this)">
-        ➗ Division
-      </button>
 
-    </div>
+      <h1>
+        🧠 Kids Math Adventure 🚀
+      </h1>
 
-    <div class="question-box">
 
-      <div class="question" id="question">
-        5 + 3 = ?
+      <div class="subtitle">
+
+        Practice Maths and become a Math Star! ⭐
+
       </div>
 
-      <input
-        type="number"
-        id="answer"
-        placeholder="Your answer"
-        onkeydown="handleEnter(event)"
-      >
 
-      <button class="submit-btn" onclick="checkAnswer()">
-        ✅ Check Answer
+      <!-- OPERATION SELECTION -->
+
+      <div class="operations">
+
+
+        <button
+          class="operation-btn active"
+          onclick="setOperation('addition', this)">
+
+          ➕ Addition
+
+        </button>
+
+
+        <button
+          class="operation-btn"
+          onclick="setOperation('subtraction', this)">
+
+          ➖ Subtraction
+
+        </button>
+
+
+        <button
+          class="operation-btn"
+          onclick="setOperation('multiplication', this)">
+
+          ✖️ Multiplication
+
+        </button>
+
+
+        <button
+          class="operation-btn"
+          onclick="setOperation('division', this)">
+
+          ➗ Division
+
+        </button>
+
+
+      </div>
+
+
+      <!-- QUESTION -->
+
+      <div class="question-box">
+
+
+        <div
+          class="question"
+          id="question">
+
+          5 + 3 = ?
+
+        </div>
+
+
+        <input
+          type="number"
+          id="answer"
+          placeholder="Your answer"
+          onkeydown="handleEnter(event)"
+        >
+
+
+        <button
+          class="submit-btn"
+          onclick="checkAnswer()">
+
+          ✅ Check Answer
+
+        </button>
+
+
+        <div id="feedback"></div>
+
+
+        <button
+          class="next-btn"
+          id="nextBtn"
+          onclick="nextQuestion()">
+
+          ➡️ Next Question
+
+        </button>
+
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+
+        <div class="score">
+
+          ⭐ Score:
+          <span id="score">0</span>
+
+        </div>
+
+
+        <div class="streak">
+
+          🔥 Streak:
+          <span id="streak">0</span>
+
+        </div>
+
+
+        <div class="question-number">
+
+          📝
+          <span id="questionNumber">1</span>/10
+
+        </div>
+
+
+      </div>
+
+
+      <button
+        class="restart-btn"
+        onclick="restartGame()">
+
+        🔄 Restart Game
+
       </button>
 
-      <div id="feedback"></div>
-
-      <button class="next-btn" id="nextBtn" onclick="newQuestion()">
-        ➡️ Next Question
-      </button>
 
     </div>
-
-    <div class="stats">
-
-      <div class="score">
-        ⭐ Score: <span id="score">0</span>
-      </div>
-
-      <div class="streak">
-        🔥 Streak: <span id="streak">0</span>
-      </div>
-
-      <div class="question-number">
-        📝 <span id="questionNumber">1</span>/10
-      </div>
-
-    </div>
-
-    <button class="restart-btn" onclick="restartGame()">
-      🔄 Restart Game
-    </button>
 
   </div>
 
 
-  <script>
 
-    let operation = "addition";
+  <!-- =================================================
+       RIGHT SIDEBAR
+  ================================================== -->
 
-    let num1;
-    let num2;
-    let correctAnswer;
-
-    let score = 0;
-    let streak = 0;
-    let questionCount = 1;
-
-    const totalQuestions = 10;
+  <aside class="sidebar">
 
 
-    // Select operation
-    function setOperation(selectedOperation, button) {
+    <div class="sidebar-title">
 
-      operation = selectedOperation;
+      🎮 Kids Games
 
-      // Remove active class
-      document.querySelectorAll(".operation-btn").forEach(btn => {
+    </div>
+
+
+    <!-- GRADE LINKS -->
+
+    <div class="grades">
+
+
+      <a
+        href="grades/k/index.html"
+        class="grade-btn">
+
+        K
+
+      </a>
+
+
+      <a
+        href="grades/1/index.html"
+        class="grade-btn">
+
+        1
+
+      </a>
+
+
+      <a
+        href="grades/2/index.html"
+        class="grade-btn">
+
+        2
+
+      </a>
+
+
+      <a
+        href="grades/3/index.html"
+        class="grade-btn">
+
+        3
+
+      </a>
+
+
+      <a
+        href="grades/4/index.html"
+        class="grade-btn">
+
+        4
+
+      </a>
+
+
+      <a
+        href="grades/5/index.html"
+        class="grade-btn">
+
+        5
+
+      </a>
+
+
+    </div>
+
+
+
+    <!-- COLORFUL GAME LINKS -->
+
+    <nav class="navigation">
+
+
+      <!-- MATH -->
+
+      <a
+        href="math/index.html"
+        class="nav-btn math">
+
+        🧮 Math
+
+      </a>
+
+
+      <!-- READING -->
+
+      <a
+        href="reading/index.html"
+        class="nav-btn reading">
+
+        📚 Reading
+
+      </a>
+
+
+      <!-- WORD -->
+
+      <a
+        href="word/index.html"
+        class="nav-btn word">
+
+        🔤 Word
+
+      </a>
+
+
+      <!-- LAB -->
+
+      <a
+        href="lab/index.html"
+        class="nav-btn lab">
+
+        🔬 Lab
+
+      </a>
+
+
+      <!-- PUZZLES -->
+
+      <a
+        href="puzzles/index.html"
+        class="nav-btn puzzles">
+
+        🧩 Puzzles
+
+      </a>
+
+
+      <!-- STORIES -->
+
+      <a
+        href="stories/index.html"
+        class="nav-btn stories">
+
+        📖 Stories
+
+      </a>
+
+
+      <!-- ELEARN -->
+
+      <a
+        href="elearn/index.html"
+        class="nav-btn elearn">
+
+        💻 eLearn
+
+      </a>
+
+
+      <!-- QUIZ -->
+
+      <a
+        href="quiz/index.html"
+        class="nav-btn quiz">
+
+        ❓ Quiz
+
+      </a>
+
+
+      <!-- WORK -->
+
+      <a
+        href="work/index.html"
+        class="nav-btn work">
+
+        ✏️ Work
+
+      </a>
+
+
+      <!-- PAINT -->
+
+      <a
+        href="paint/index.html"
+        class="nav-btn paint">
+
+        🎨 Paint
+
+      </a>
+
+
+      <!-- TOOLS -->
+
+      <a
+        href="tools/index.html"
+        class="nav-btn tools">
+
+        🛠️ Tools
+
+      </a>
+
+
+      <!-- SKILLS -->
+
+      <a
+        href="skills/index.html"
+        class="nav-btn skills">
+
+        ⭐ Skills
+
+      </a>
+
+
+    </nav>
+
+
+  </aside>
+
+
+</div>
+
+
+
+<script>
+
+
+  /* ==========================================
+     GAME VARIABLES
+  ========================================== */
+
+  let operation = "addition";
+
+  let num1;
+  let num2;
+  let correctAnswer;
+
+  let score = 0;
+  let streak = 0;
+  let questionCount = 1;
+
+  const totalQuestions = 10;
+
+
+
+  /* ==========================================
+     SELECT OPERATION
+  ========================================== */
+
+  function setOperation(selectedOperation, button) {
+
+    operation = selectedOperation;
+
+
+    document
+      .querySelectorAll(".operation-btn")
+      .forEach(btn => {
+
         btn.classList.remove("active");
+
       });
 
-      // Add active class
-      button.classList.add("active");
 
-      restartGame();
-    }
+    button.classList.add("active");
 
 
-    // Generate random number
-    function randomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    restartGame();
+
+  }
 
 
-    // Create new question
-    function newQuestion() {
 
-      document.getElementById("answer").value = "";
+  /* ==========================================
+     RANDOM NUMBER
+  ========================================== */
 
-      document.getElementById("feedback").textContent = "";
+  function randomNumber(min, max) {
 
-      document.getElementById("nextBtn").style.display = "none";
+    return Math.floor(
+      Math.random() *
+      (max - min + 1)
+    ) + min;
 
-      document.getElementById("answer").disabled = false;
-
-      document.querySelector(".submit-btn").disabled = false;
-
-
-      if (operation === "addition") {
-
-        num1 = randomNumber(1, 50);
-        num2 = randomNumber(1, 50);
-
-        correctAnswer = num1 + num2;
-
-        document.getElementById("question").textContent =
-          `${num1} + ${num2} = ?`;
-      }
+  }
 
 
-      else if (operation === "subtraction") {
 
-        num1 = randomNumber(1, 50);
-        num2 = randomNumber(1, 50);
+  /* ==========================================
+     NEW QUESTION
+  ========================================== */
 
-        // Keep answer positive
-        if (num2 > num1) {
-          [num1, num2] = [num2, num1];
-        }
-
-        correctAnswer = num1 - num2;
-
-        document.getElementById("question").textContent =
-          `${num1} − ${num2} = ?`;
-      }
+  function newQuestion() {
 
 
-      else if (operation === "multiplication") {
-
-        num1 = randomNumber(1, 12);
-        num2 = randomNumber(1, 12);
-
-        correctAnswer = num1 * num2;
-
-        document.getElementById("question").textContent =
-          `${num1} × ${num2} = ?`;
-      }
+    const answerInput =
+      document.getElementById("answer");
 
 
-      else if (operation === "division") {
-
-        // Create division questions with whole-number answers
-        num2 = randomNumber(1, 12);
-        correctAnswer = randomNumber(1, 12);
-
-        num1 = num2 * correctAnswer;
-
-        document.getElementById("question").textContent =
-          `${num1} ÷ ${num2} = ?`;
-      }
-
-      document.getElementById("questionNumber").textContent =
-        questionCount;
-    }
+    const feedback =
+      document.getElementById("feedback");
 
 
-    // Check answer
-    function checkAnswer() {
-
-      const input = document.getElementById("answer");
-
-      const userAnswer = Number(input.value);
-
-      const feedback = document.getElementById("feedback");
-
-      if (input.value === "") {
-
-        feedback.textContent = "✏️ Please enter an answer!";
-        feedback.style.color = "#ff9f1c";
-
-        return;
-      }
+    const nextBtn =
+      document.getElementById("nextBtn");
 
 
-      // Disable input after answer
-      input.disabled = true;
-
-      document.querySelector(".submit-btn").disabled = true;
+    const submitBtn =
+      document.querySelector(".submit-btn");
 
 
-      if (userAnswer === correctAnswer) {
+    answerInput.value = "";
 
-        score += 10;
-        streak++;
+    feedback.textContent = "";
 
-        document.getElementById("score").textContent = score;
-        document.getElementById("streak").textContent = streak;
+    nextBtn.style.display = "none";
 
-        feedback.textContent =
-          "🎉 Excellent! Correct Answer! ⭐";
+    answerInput.disabled = false;
 
-        feedback.style.color = "#2e9d48";
-
-      }
-
-      else {
-
-        streak = 0;
-
-        document.getElementById("streak").textContent = streak;
-
-        feedback.textContent =
-          `😊 Good try! Correct answer is ${correctAnswer}`;
-
-        feedback.style.color = "#e63946";
-      }
+    submitBtn.disabled = false;
 
 
-      // Show next button
-      document.getElementById("nextBtn").style.display = "block";
-    }
+    /* Make elements visible again */
+
+    answerInput.style.display = "block";
+
+    submitBtn.style.display = "block";
 
 
-    // Enter key support
-    function handleEnter(event) {
 
-      if (event.key === "Enter") {
-        checkAnswer();
-      }
+    /* ADDITION */
+
+    if (operation === "addition") {
+
+      num1 = randomNumber(1, 50);
+
+      num2 = randomNumber(1, 50);
+
+      correctAnswer =
+        num1 + num2;
+
+
+      document
+        .getElementById("question")
+        .textContent =
+        `${num1} + ${num2} = ?`;
 
     }
 
 
-    // Next question
-    document.getElementById("nextBtn").addEventListener("click", function() {
 
-      if (questionCount < totalQuestions) {
+    /* SUBTRACTION */
 
-        questionCount++;
+    else if (operation === "subtraction") {
 
-        newQuestion();
+      num1 = randomNumber(1, 50);
+
+      num2 = randomNumber(1, 50);
+
+
+      if (num2 > num1) {
+
+        [num1, num2] =
+          [num2, num1];
 
       }
 
-      else {
 
-        showFinalScore();
-
-      }
-
-    });
+      correctAnswer =
+        num1 - num2;
 
 
-    // Final score
-    function showFinalScore() {
-
-      document.getElementById("question").textContent =
-        "🏆 Game Complete!";
-
-      document.getElementById("feedback").textContent =
-        `You scored ${score} out of ${totalQuestions * 10}! 🎉`;
-
-      document.getElementById("feedback").style.color = "#845ec2";
-
-      document.getElementById("answer").style.display = "none";
-
-      document.querySelector(".submit-btn").style.display = "none";
-
-      document.getElementById("nextBtn").style.display = "none";
+      document
+        .getElementById("question")
+        .textContent =
+        `${num1} − ${num2} = ?`;
 
     }
 
 
-    // Restart
-    function restartGame() {
 
-      score = 0;
+    /* MULTIPLICATION */
+
+    else if (operation === "multiplication") {
+
+      num1 = randomNumber(1, 12);
+
+      num2 = randomNumber(1, 12);
+
+      correctAnswer =
+        num1 * num2;
+
+
+      document
+        .getElementById("question")
+        .textContent =
+        `${num1} × ${num2} = ?`;
+
+    }
+
+
+
+    /* DIVISION */
+
+    else if (operation === "division") {
+
+      num2 = randomNumber(1, 12);
+
+      correctAnswer =
+        randomNumber(1, 12);
+
+      num1 =
+        num2 * correctAnswer;
+
+
+      document
+        .getElementById("question")
+        .textContent =
+        `${num1} ÷ ${num2} = ?`;
+
+    }
+
+
+    document
+      .getElementById("questionNumber")
+      .textContent =
+      questionCount;
+
+
+    answerInput.focus();
+
+  }
+
+
+
+  /* ==========================================
+     CHECK ANSWER
+  ========================================== */
+
+  function checkAnswer() {
+
+
+    const input =
+      document.getElementById("answer");
+
+
+    const userAnswer =
+      Number(input.value);
+
+
+    const feedback =
+      document.getElementById("feedback");
+
+
+    if (input.value === "") {
+
+      feedback.textContent =
+        "✏️ Please enter an answer!";
+
+      feedback.style.color =
+        "#ff9f1c";
+
+      input.focus();
+
+      return;
+
+    }
+
+
+    /* Disable after answer */
+
+    input.disabled = true;
+
+    document
+      .querySelector(".submit-btn")
+      .disabled = true;
+
+
+
+    /* CORRECT */
+
+    if (userAnswer === correctAnswer) {
+
+
+      score += 10;
+
+      streak++;
+
+
+      document
+        .getElementById("score")
+        .textContent =
+        score;
+
+
+      document
+        .getElementById("streak")
+        .textContent =
+        streak;
+
+
+      feedback.textContent =
+        "🎉 Excellent! Correct Answer! ⭐";
+
+
+      feedback.style.color =
+        "#2e9d48";
+
+    }
+
+
+
+    /* WRONG */
+
+    else {
+
+
       streak = 0;
-      questionCount = 1;
 
-      document.getElementById("score").textContent = score;
-      document.getElementById("streak").textContent = streak;
-      document.getElementById("questionNumber").textContent = questionCount;
 
-      document.getElementById("answer").style.display = "block";
-      document.querySelector(".submit-btn").style.display = "block";
+      document
+        .getElementById("streak")
+        .textContent =
+        streak;
+
+
+      feedback.textContent =
+        `😊 Good try! Correct answer is ${correctAnswer}`;
+
+
+      feedback.style.color =
+        "#e63946";
+
+    }
+
+
+    document
+      .getElementById("nextBtn")
+      .style.display =
+      "block";
+
+  }
+
+
+
+  /* ==========================================
+     ENTER KEY
+  ========================================== */
+
+  function handleEnter(event) {
+
+    if (event.key === "Enter") {
+
+      checkAnswer();
+
+    }
+
+  }
+
+
+
+  /* ==========================================
+     NEXT QUESTION
+  ========================================== */
+
+  function nextQuestion() {
+
+
+    if (questionCount < totalQuestions) {
+
+      questionCount++;
 
       newQuestion();
+
     }
 
+    else {
 
-    // Start game
+      showFinalScore();
+
+    }
+
+  }
+
+
+
+  /* ==========================================
+     FINAL SCORE
+  ========================================== */
+
+  function showFinalScore() {
+
+
+    document
+      .getElementById("question")
+      .textContent =
+      "🏆 Game Complete!";
+
+
+    document
+      .getElementById("feedback")
+      .textContent =
+      `You scored ${score} out of ${totalQuestions * 10}! 🎉`;
+
+
+    document
+      .getElementById("feedback")
+      .style.color =
+      "#845ec2";
+
+
+    document
+      .getElementById("answer")
+      .style.display =
+      "none";
+
+
+    document
+      .querySelector(".submit-btn")
+      .style.display =
+      "none";
+
+
+    document
+      .getElementById("nextBtn")
+      .style.display =
+      "none";
+
+  }
+
+
+
+  /* ==========================================
+     RESTART
+  ========================================== */
+
+  function restartGame() {
+
+
+    score = 0;
+
+    streak = 0;
+
+    questionCount = 1;
+
+
+    document
+      .getElementById("score")
+      .textContent =
+      score;
+
+
+    document
+      .getElementById("streak")
+      .textContent =
+      streak;
+
+
+    document
+      .getElementById("questionNumber")
+      .textContent =
+      questionCount;
+
+
     newQuestion();
 
-  </script>
+  }
+
+
+
+  /* ==========================================
+     START GAME
+  ========================================== */
+
+  newQuestion();
+
+
+</script>
+
 
 </body>
 </html>
