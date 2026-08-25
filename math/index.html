@@ -1,15 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kids Math Adventure</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Comic Sans MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game {
+      width: 95%;
+      max-width: 650px;
+      background: white;
+      padding: 30px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #ff6b6b;
+      font-size: 40px;
+      margin: 5px 0;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .operations {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .operation-btn {
+      border: none;
+      padding: 12px 5px;
+      border-radius: 15px;
+      font-size: 20px;
+      font-family: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      background: #eee;
+      transition: 0.2s;
+    }
+
+    .operation-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .operation-btn.active {
+      background: #845ec2;
+      color: white;
+    }
+
+    .question-box {
+      background: #f7f7ff;
+      border-radius: 25px;
+      padding: 25px;
+    }
+
+    .question {
+      font-size: 60px;
+      font-weight: bold;
+      color: #4d96ff;
+      margin: 15px 0;
+    }
+
+    input {
+      width: 80%;
+      max-width: 300px;
+      padding: 15px;
+      font-size: 30px;
+      text-align: center;
+      border: 3px solid #4d96ff;
+      border-radius: 15px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 15px auto;
+      padding: 15px;
+      border: none;
+      border-radius: 15px;
+      background: #6bcb77;
+      color: white;
+      font-size: 24px;
+      font-family: inherit;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #55b963;
+      transform: scale(1.03);
+    }
+
+    #feedback {
+      min-height: 40px;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .score {
+      color: #ff9f1c;
+    }
+
+    .streak {
+      color: #e63946;
+    }
+
+    .question-number {
+      color: #845ec2;
+    }
+
+    .next-btn {
+      display: none;
+      width: 80%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 15px;
+      border: none;
+      border-radius: 15px;
+      background: #ff9f1c;
+      color: white;
+      font-size: 22px;
+      font-family: inherit;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .restart-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 15px;
+      background: #ff6b6b;
+      color: white;
+      font-size: 18px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      .question {
+        font-size: 45px;
+      }
+
+      .operations {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      input {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <h1>Hello! 👋</h1>
-    <p>Welcome to my website.</p>
+  <div class="game">
+
+    <h1>🧠 Kids Math Adventure 🚀</h1>
+
+    <div class="subtitle">
+      Practice Maths and become a Math Star! ⭐
+    </div>
+
+    <!-- Operation Selection -->
+    <div class="operations">
+
+      <button class="operation-btn active" onclick="setOperation('addition', this)">
+        ➕ Addition
+      </button>
+
+      <button class="operation-btn" onclick="setOperation('subtraction', this)">
+        ➖ Subtraction
+      </button>
+
+      <button class="operation-btn" onclick="setOperation('multiplication', this)">
+        ✖️ Multiplication
+      </button>
+
+      <button class="operation-btn" onclick="setOperation('division', this)">
+        ➗ Division
+      </button>
+
+    </div>
+
+    <div class="question-box">
+
+      <div class="question" id="question">
+        5 + 3 = ?
+      </div>
+
+      <input
+        type="number"
+        id="answer"
+        placeholder="Your answer"
+        onkeydown="handleEnter(event)"
+      >
+
+      <button class="submit-btn" onclick="checkAnswer()">
+        ✅ Check Answer
+      </button>
+
+      <div id="feedback"></div>
+
+      <button class="next-btn" id="nextBtn" onclick="newQuestion()">
+        ➡️ Next Question
+      </button>
+
+    </div>
+
+    <div class="stats">
+
+      <div class="score">
+        ⭐ Score: <span id="score">0</span>
+      </div>
+
+      <div class="streak">
+        🔥 Streak: <span id="streak">0</span>
+      </div>
+
+      <div class="question-number">
+        📝 <span id="questionNumber">1</span>/10
+      </div>
+
+    </div>
+
+    <button class="restart-btn" onclick="restartGame()">
+      🔄 Restart Game
+    </button>
+
+  </div>
+
+
+  <script>
+
+    let operation = "addition";
+
+    let num1;
+    let num2;
+    let correctAnswer;
+
+    let score = 0;
+    let streak = 0;
+    let questionCount = 1;
+
+    const totalQuestions = 10;
+
+
+    // Select operation
+    function setOperation(selectedOperation, button) {
+
+      operation = selectedOperation;
+
+      // Remove active class
+      document.querySelectorAll(".operation-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      // Add active class
+      button.classList.add("active");
+
+      restartGame();
+    }
+
+
+    // Generate random number
+    function randomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+
+    // Create new question
+    function newQuestion() {
+
+      document.getElementById("answer").value = "";
+
+      document.getElementById("feedback").textContent = "";
+
+      document.getElementById("nextBtn").style.display = "none";
+
+      document.getElementById("answer").disabled = false;
+
+      document.querySelector(".submit-btn").disabled = false;
+
+
+      if (operation === "addition") {
+
+        num1 = randomNumber(1, 50);
+        num2 = randomNumber(1, 50);
+
+        correctAnswer = num1 + num2;
+
+        document.getElementById("question").textContent =
+          `${num1} + ${num2} = ?`;
+      }
+
+
+      else if (operation === "subtraction") {
+
+        num1 = randomNumber(1, 50);
+        num2 = randomNumber(1, 50);
+
+        // Keep answer positive
+        if (num2 > num1) {
+          [num1, num2] = [num2, num1];
+        }
+
+        correctAnswer = num1 - num2;
+
+        document.getElementById("question").textContent =
+          `${num1} − ${num2} = ?`;
+      }
+
+
+      else if (operation === "multiplication") {
+
+        num1 = randomNumber(1, 12);
+        num2 = randomNumber(1, 12);
+
+        correctAnswer = num1 * num2;
+
+        document.getElementById("question").textContent =
+          `${num1} × ${num2} = ?`;
+      }
+
+
+      else if (operation === "division") {
+
+        // Create division questions with whole-number answers
+        num2 = randomNumber(1, 12);
+        correctAnswer = randomNumber(1, 12);
+
+        num1 = num2 * correctAnswer;
+
+        document.getElementById("question").textContent =
+          `${num1} ÷ ${num2} = ?`;
+      }
+
+      document.getElementById("questionNumber").textContent =
+        questionCount;
+    }
+
+
+    // Check answer
+    function checkAnswer() {
+
+      const input = document.getElementById("answer");
+
+      const userAnswer = Number(input.value);
+
+      const feedback = document.getElementById("feedback");
+
+      if (input.value === "") {
+
+        feedback.textContent = "✏️ Please enter an answer!";
+        feedback.style.color = "#ff9f1c";
+
+        return;
+      }
+
+
+      // Disable input after answer
+      input.disabled = true;
+
+      document.querySelector(".submit-btn").disabled = true;
+
+
+      if (userAnswer === correctAnswer) {
+
+        score += 10;
+        streak++;
+
+        document.getElementById("score").textContent = score;
+        document.getElementById("streak").textContent = streak;
+
+        feedback.textContent =
+          "🎉 Excellent! Correct Answer! ⭐";
+
+        feedback.style.color = "#2e9d48";
+
+      }
+
+      else {
+
+        streak = 0;
+
+        document.getElementById("streak").textContent = streak;
+
+        feedback.textContent =
+          `😊 Good try! Correct answer is ${correctAnswer}`;
+
+        feedback.style.color = "#e63946";
+      }
+
+
+      // Show next button
+      document.getElementById("nextBtn").style.display = "block";
+    }
+
+
+    // Enter key support
+    function handleEnter(event) {
+
+      if (event.key === "Enter") {
+        checkAnswer();
+      }
+
+    }
+
+
+    // Next question
+    document.getElementById("nextBtn").addEventListener("click", function() {
+
+      if (questionCount < totalQuestions) {
+
+        questionCount++;
+
+        newQuestion();
+
+      }
+
+      else {
+
+        showFinalScore();
+
+      }
+
+    });
+
+
+    // Final score
+    function showFinalScore() {
+
+      document.getElementById("question").textContent =
+        "🏆 Game Complete!";
+
+      document.getElementById("feedback").textContent =
+        `You scored ${score} out of ${totalQuestions * 10}! 🎉`;
+
+      document.getElementById("feedback").style.color = "#845ec2";
+
+      document.getElementById("answer").style.display = "none";
+
+      document.querySelector(".submit-btn").style.display = "none";
+
+      document.getElementById("nextBtn").style.display = "none";
+
+    }
+
+
+    // Restart
+    function restartGame() {
+
+      score = 0;
+      streak = 0;
+      questionCount = 1;
+
+      document.getElementById("score").textContent = score;
+      document.getElementById("streak").textContent = streak;
+      document.getElementById("questionNumber").textContent = questionCount;
+
+      document.getElementById("answer").style.display = "block";
+      document.querySelector(".submit-btn").style.display = "block";
+
+      newQuestion();
+    }
+
+
+    // Start game
+    newQuestion();
+
+  </script>
 
 </body>
 </html>
-
