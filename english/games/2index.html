@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Letter Is This?</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+
+    .game {
+        width: 95%;
+        max-width: 650px;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(12px);
+        border-radius: 25px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+        margin-top: 0;
+        font-size: 32px;
+    }
+
+    .mode-box {
+        margin: 20px 0;
+    }
+
+    .mode-btn {
+        border: none;
+        padding: 12px 22px;
+        margin: 5px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        background: white;
+        color: #555;
+        transition: 0.2s;
+    }
+
+    .mode-btn.active {
+        background: #ffd43b;
+        color: #222;
+        transform: scale(1.05);
+    }
+
+    .letter {
+        width: 220px;
+        height: 220px;
+        margin: 25px auto;
+        background: white;
+        color: #667eea;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 130px;
+        font-weight: bold;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+        font-size: 18px;
+    }
+
+    .feedback {
+        height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .keyboard {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .key {
+        border: none;
+        background: white;
+        color: #555;
+        padding: 14px 5px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.15s;
+    }
+
+    .key:hover {
+        background: #ffd43b;
+        transform: translateY(-2px);
+    }
+
+    .key.correct {
+        background: #38d996;
+        color: white;
+    }
+
+    .key.wrong {
+        background: #ff5c5c;
+        color: white;
+    }
+
+    .hint {
+        margin-top: 18px;
+        opacity: 0.85;
+        font-size: 14px;
+    }
+
+    .restart {
+        margin-top: 20px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 12px;
+        background: #ff6b6b;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+        .game {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        .letter {
+            width: 170px;
+            height: 170px;
+            font-size: 100px;
+        }
+
+        .keyboard {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .key {
+            padding: 11px 3px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <h1>🎯 Which Letter Is This?</h1>
+
+    <div class="mode-box">
+        <button class="mode-btn active" id="keyboardMode">
+            ⌨️ Keyboard
+        </button>
+
+        <button class="mode-btn" id="mouseMode">
+            🖱️ Mouse
+        </button>
+    </div>
+
+    <div class="stats">
+        <div>Score: <b id="score">0</b></div>
+        <div>Streak: 🔥 <b id="streak">0</b></div>
+        <div>Question: <b id="question">1</b></div>
+    </div>
+
+    <div class="letter" id="letter">A</div>
+
+    <div class="feedback" id="feedback">
+        Press the correct key!
+    </div>
+
+    <div class="keyboard" id="keyboard"></div>
+
+    <div class="hint" id="hint">
+        Press the letter shown above on your keyboard.
+    </div>
+
+    <button class="restart" onclick="restartGame()">
+        🔄 Restart Game
+    </button>
+
+</div>
+
+<script>
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+let currentLetter = "";
+let score = 0;
+let streak = 0;
+let question = 1;
+let mode = "keyboard";
+
+const letterBox = document.getElementById("letter");
+const scoreText = document.getElementById("score");
+const streakText = document.getElementById("streak");
+const questionText = document.getElementById("question");
+const feedback = document.getElementById("feedback");
+const keyboard = document.getElementById("keyboard");
+const hint = document.getElementById("hint");
+
+const keyboardMode = document.getElementById("keyboardMode");
+const mouseMode = document.getElementById("mouseMode");
+
+
+/* Create A-Z buttons */
+letters.split("").forEach(letter => {
+
+    const button = document.createElement("button");
+
+    button.className = "key";
+    button.textContent = letter;
+
+    button.onclick = function() {
+        if (mode === "mouse") {
+            checkAnswer(letter, button);
+        }
+    };
+
+    keyboard.appendChild(button);
+});
+
+
+/* Generate random letter */
+function newLetter() {
+
+    currentLetter =
+        letters[Math.floor(Math.random() * letters.length)];
+
+    letterBox.textContent = currentLetter;
+
+    feedback.textContent =
+        mode === "keyboard"
+        ? "Press the correct key!"
+        : "Click the correct letter!";
+
+    feedback.style.color = "white";
+
+    document.querySelectorAll(".key").forEach(btn => {
+        btn.classList.remove("correct", "wrong");
+    });
+}
+
+
+/* Check answer */
+function checkAnswer(answer, button = null) {
+
+    if (answer === currentLetter) {
+
+        score += 10;
+        streak++;
+
+        feedback.textContent = "✅ Correct! Great job!";
+        feedback.style.color = "#38d996";
+
+        if (button) {
+            button.classList.add("correct");
+        }
+
+        updateStats();
+
+        setTimeout(() => {
+            question++;
+            updateStats();
+            newLetter();
+        }, 600);
+
+    } else {
+
+        streak = 0;
+
+        feedback.textContent = "❌ Wrong! Try again!";
+        feedback.style.color = "#ff6b6b";
+
+        if (button) {
+            button.classList.add("wrong");
+
+            setTimeout(() => {
+                button.classList.remove("wrong");
+            }, 400);
+        }
+
+        updateStats();
+    }
+}
+
+
+/* Keyboard input */
+document.addEventListener("keydown", function(event) {
+
+    if (mode !== "keyboard") return;
+
+    const key = event.key.toUpperCase();
+
+    if (letters.includes(key)) {
+        checkAnswer(key);
+    }
+
+});
+
+
+/* Keyboard mode */
+keyboardMode.onclick = function() {
+
+    mode = "keyboard";
+
+    keyboardMode.classList.add("active");
+    mouseMode.classList.remove("active");
+
+    keyboard.style.display = "none";
+
+    hint.textContent =
+        "⌨️ Press the letter shown above on your keyboard.";
+
+    newLetter();
+};
+
+
+/* Mouse mode */
+mouseMode.onclick = function() {
+
+    mode = "mouse";
+
+    mouseMode.classList.add("active");
+    keyboardMode.classList.remove("active");
+
+    keyboard.style.display = "grid";
+
+    hint.textContent =
+        "🖱️ Click the correct letter below.";
+
+    newLetter();
+};
+
+
+/* Update score */
+function updateStats() {
+
+    scoreText.textContent = score;
+    streakText.textContent = streak;
+    questionText.textContent = question;
+
+}
+
+
+/* Restart */
+function restartGame() {
+
+    score = 0;
+    streak = 0;
+    question = 1;
+
+    updateStats();
+    newLetter();
+
+}
+
+
+/* Start */
+keyboard.style.display = "none";
+newLetter();
+
+</script>
+
+</body>
+</html>
