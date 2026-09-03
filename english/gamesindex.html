@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kids Math Games</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    font-family:
+        "Comic Sans MS",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
+    background:
+        #a9dcf7;
+
+    color: #222;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    min-height: 155px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #344f9d 0%,
+            #263e87 100%
+        );
+
+    position: relative;
+
+    padding: 18px 25px;
+
+    color: white;
+
+    overflow: hidden;
+}
+
+
+/* Decorative circles */
+
+.header::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    right: 80px;
+    top: -130px;
+}
+
+
+.header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    left: 40%;
+    bottom: -100px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 43px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    color: #8ddcff;
+
+    text-shadow:
+
+        3px 3px 0 #5d32a8,
+
+        5px 5px 0 #13245b,
+
+        7px 7px 0 rgba(0,0,0,0.2);
+
+}
+
+
+/* Logo subtitle */
+
+.logo-subtitle {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 3px;
+
+    font-size: 17px;
+
+    color: #d8f5ff;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   ACCOUNT BUTTONS
+===================================================== */
+
+.account {
+
+    position: absolute;
+
+    z-index: 5;
+
+    right: 315px;
+
+    top: 18px;
+
+    display: flex;
+
+    gap: 12px;
+}
+
+
+.account a {
+
+    text-decoration: none;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+    padding:
+        7px 30px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            #5790e5,
+            #174aa5
+        );
+
+    border:
+        3px solid #287ee7;
+
+    box-shadow:
+
+        inset 0 2px 4px
+        rgba(255,255,255,.6),
+
+        0 3px 0 #142b68;
+
+    transition: .2s;
+}
+
+
+.account a:hover {
+
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.15);
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search {
+
+    position: absolute;
+
+    z-index: 5;
+
+    right: 12px;
+
+    top: 18px;
+
+    display: flex;
+
+    height: 34px;
+}
+
+
+.search input {
+
+    width: 205px;
+
+    border:
+        2px solid #ddd;
+
+    padding:
+        5px 8px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.search button {
+
+    border: none;
+
+    background:
+        linear-gradient(
+            #5477e5,
+            #263b9a
+        );
+
+    color: white;
+
+    padding:
+        0 12px;
+
+    font-family: inherit;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   PAGE LAYOUT
+===================================================== */
+
+.page {
+
+    display: flex;
+
+    min-height:
+        calc(100vh - 155px);
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.content {
+
+    flex: 1;
+
+    padding:
+        20px 30px 50px;
+
+    min-width: 0;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    text-align: center;
+
+    margin:
+        0 auto 28px;
+
+    max-width: 900px;
+}
+
+
+.hero h1 {
+
+    margin:
+        0 0 8px;
+
+    color:
+        #101b9a;
+
+    font-size:
+        38px;
+
+    text-shadow:
+        2px 3px 0 white;
+}
+
+
+.hero p {
+
+    margin: 0;
+
+    color:
+        #355;
+
+    font-size:
+        19px;
+
+    font-weight:
+        bold;
+}
+
+
+/* =====================================================
+   GAME GRID
+===================================================== */
+
+.games-grid {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        24px;
+}
+
+
+/* =====================================================
+   GAME CARD
+===================================================== */
+
+.game-card {
+
+    position: relative;
+
+    min-height: 205px;
+
+    padding:
+        22px 15px;
+
+    border-radius:
+        24px;
+
+    text-decoration:
+        none;
+
+    color:
+        white;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    text-align:
+        center;
+
+    overflow:
+        hidden;
+
+    border:
+        5px solid
+        rgba(255,255,255,.8);
+
+    box-shadow:
+
+        0 7px 0
+        rgba(0,0,0,.25),
+
+        0 12px 25px
+        rgba(0,0,0,.18);
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+}
+
+
+/* Shine */
+
+.game-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.15);
+
+    top: -90px;
+
+    right: -60px;
+}
+
+
+.game-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.09);
+
+    bottom: -30px;
+
+    left: -20px;
+}
+
+
+/* Hover */
+
+.game-card:hover {
+
+    transform:
+        translateY(-9px)
+        scale(1.025);
+
+    box-shadow:
+
+        0 12px 0
+        rgba(0,0,0,.25),
+
+        0 18px 35px
+        rgba(0,0,0,.25);
+}
+
+
+/* =====================================================
+   GAME ICON
+===================================================== */
+
+.game-icon {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 82px;
+
+    height: 82px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 48px;
+
+    background:
+        rgba(255,255,255,.22);
+
+    border:
+        3px solid
+        rgba(255,255,255,.65);
+
+    box-shadow:
+        inset 0 3px 5px
+        rgba(255,255,255,.5),
+
+        0 5px 8px
+        rgba(0,0,0,.18);
+
+    margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   GAME NAME
+===================================================== */
+
+.game-name {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 26px;
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    text-shadow:
+        2px 3px 0
+        rgba(0,0,0,.25);
+}
+
+
+/* =====================================================
+   GAME DESCRIPTION
+===================================================== */
+
+.game-description {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    margin-top: 7px;
+
+    color:
+        rgba(255,255,255,.95);
+}
+
+
+/* =====================================================
+   CARD COLORS
+===================================================== */
+
+.addition-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #46d47c,
+            #078f3c
+        );
+}
+
+
+.basketball-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb14b,
+            #df5000
+        );
+}
+
+
+.bodmas-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #a171ff,
+            #5922b5
+        );
+}
+
+
+.division-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #52d0f1,
+            #087eaf
+        );
+}
+
+
+.multiplication-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff70aa,
+            #d21866
+        );
+}
+
+
+.subtraction-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffdd4c,
+            #e89400
+        );
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+
+    width: 305px;
+
+    flex-shrink: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #293f91,
+            #203575
+        );
+
+    padding:
+        16px 12px;
+
+    box-shadow:
+        -5px 0 15px
+        rgba(0,0,0,.18);
+
+    position:
+        sticky;
+
+    top: 0;
+
+    height:
+        100vh;
+
+    overflow-y:
+        auto;
+}
+
+
+/* =====================================================
+   SIDEBAR TITLE
+===================================================== */
+
+.sidebar-title {
+
+    text-align:
+        center;
+
+    color:
+        white;
+
+    font-size:
+        27px;
+
+    font-weight:
+        900;
+
+    margin:
+        0 0 12px;
+
+    text-shadow:
+        2px 3px 0 #15255d;
+}
+
+
+/* =====================================================
+   GRADE BUTTONS
+===================================================== */
+
+.grades {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(6,1fr);
+
+    gap:
+        5px;
+
+    margin-bottom:
+        13px;
+}
+
+
+.grade {
+
+    text-decoration:
+        none;
+
+    color:
+        white;
+
+    text-align:
+        center;
+
+    font-size:
+        20px;
+
+    font-weight:
+        bold;
+
+    padding:
+        5px 2px;
+
+    border-radius:
+        9px;
+
+    background:
+        linear-gradient(
+            #fff46b,
+            #d89d00
+        );
+
+    border:
+        2px solid
+        #fff7a8;
+
+    box-shadow:
+        0 3px 0 #816000;
+
+    text-shadow:
+        1px 2px 0 #735000;
+
+    transition:
+        .2s;
+}
+
+
+.grade:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.05);
+}
+
+
+/* =====================================================
+   SIDEBAR NAV
+===================================================== */
+
+.navigation {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:
+        10px;
+}
+
+
+.nav-btn {
+
+    min-height:
+        48px;
+
+    padding:
+        7px 3px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+    text-decoration:
+        none;
+
+    color:
+        white;
+
+    font-size:
+        17px;
+
+    font-weight:
+        900;
+
+    border-radius:
+        25px;
+
+    border:
+        3px solid
+        rgba(255,255,255,.6);
+
+    box-shadow:
+
+        0 4px 0
+        rgba(0,0,0,.4),
+
+        inset 0 2px 4px
+        rgba(255,255,255,.55);
+
+    text-shadow:
+        2px 2px 0
+        rgba(0,0,0,.4);
+
+    transition:
+        .2s;
+}
+
+
+.nav-btn:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.05);
+
+    filter:
+        brightness(1.13);
+}
+
+
+/* =====================================================
+   NAV COLORS
+===================================================== */
+
+.math {
+
+    background:
+        linear-gradient(
+            #55d8ef,
+            #008cb7
+        );
+}
+
+
+.reading {
+
+    background:
+        linear-gradient(
+            #ff6d67,
+            #d51b1b
+        );
+}
+
+
+.word {
+
+    background:
+        linear-gradient(
+            #67df72,
+            #079b2e
+        );
+}
+
+
+.lab {
+
+    background:
+        linear-gradient(
+            #e16cf1,
+            #8a24b0
+        );
+}
+
+
+.puzzles {
+
+    background:
+        linear-gradient(
+            #5b97ee,
+            #1b4d9c
+        );
+}
+
+
+.stories {
+
+    background:
+        linear-gradient(
+            #ffd75c,
+            #c88b12
+        );
+}
+
+
+.elearn {
+
+    background:
+        linear-gradient(
+            #ffad36,
+            #e45b00
+        );
+}
+
+
+.quiz {
+
+    background:
+        linear-gradient(
+            #ff6bc3,
+            #d21c7d
+        );
+}
+
+
+.work {
+
+    background:
+        linear-gradient(
+            #4ee0e5,
+            #058e9d
+        );
+}
+
+
+.paint {
+
+    background:
+        linear-gradient(
+            #ffed62,
+            #dba900
+        );
+}
+
+
+.tools {
+
+    background:
+        linear-gradient(
+            #dedede,
+            #707070
+        );
+}
+
+
+.skills {
+
+    background:
+        linear-gradient(
+            #71e85d,
+            #249c18
+        );
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    max-width:
+        1000px;
+
+    margin:
+        35px auto 0;
+
+    padding:
+        18px;
+
+    text-align:
+        center;
+
+    color:
+        #315;
+
+    font-weight:
+        bold;
+
+    background:
+        rgba(255,255,255,.45);
+
+    border-radius:
+        20px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width: 1050px) {
+
+    .games-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .sidebar {
+
+        width:
+            270px;
+    }
+
+    .account {
+
+        right:
+            290px;
+    }
+
+}
+
+
+@media(max-width: 800px) {
+
+    .header {
+
+        min-height:
+            190px;
+
+        text-align:
+            center;
+    }
+
+
+    .logo {
+
+        font-size:
+            34px;
+    }
+
+
+    .account {
+
+        position:
+            static;
+
+        justify-content:
+            center;
+
+        margin-top:
+            15px;
+    }
+
+
+    .search {
+
+        position:
+            static;
+
+        justify-content:
+            center;
+
+        margin-top:
+            10px;
+    }
+
+
+    .page {
+
+        flex-direction:
+            column;
+    }
+
+
+    .content {
+
+        padding:
+            20px 15px 40px;
+    }
+
+
+    .sidebar {
+
+        width:
+            100%;
+
+        height:
+            auto;
+
+        position:
+            relative;
+
+        order:
+            2;
+    }
+
+
+    .navigation {
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+}
+
+
+@media(max-width: 550px) {
+
+    .games-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            29px;
+    }
+
+
+    .hero p {
+
+        font-size:
+            16px;
+    }
+
+
+    .game-card {
+
+        min-height:
+            190px;
+    }
+
+
+    .navigation {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+
+    .account {
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+    }
+
+
+    .account a {
+
+        width:
+            180px;
+    }
+
+
+    .search input {
+
+        width:
+            170px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+
+    <div class="logo">
+
+        KidsMathAdventure.com
+
+    </div>
+
+
+    <div class="logo-subtitle">
+
+        🚀 Fun Learning • Play • Practice • Learn ⭐
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <div class="account">
+
+        <a href="#">
+            👤 Login
+        </a>
+
+        <a href="#">
+            ⭐ Subscribe
+        </a>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search">
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search games...">
+
+        <button
+            onclick="searchGames()">
+
+            🔍 Search
+
+        </button>
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
+
+<div class="page">
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="content">
+
+
+        <section class="hero">
+
+            <h1>
+                🎮 Free Math Games for Kids
+            </h1>
+
+            <p>
+                Learn Addition, Subtraction,
+                Multiplication, Division & More! 🌟
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             GAME CARDS
+        ================================================== -->
+
+        <div
+            class="games-grid"
+            id="gamesGrid">
+
+
+            <!-- ADDITION -->
+
+            <a
+                href="/games/addition/index.html"
+                class="game-card addition-card"
+                data-name="addition">
+
+                <div class="game-icon">
+
+                    ➕
+
+                </div>
+
+                <div class="game-name">
+
+                    Addition
+
+                </div>
+
+                <div class="game-description">
+
+                    Practice Addition Skills
+
+                </div>
+
+            </a>
+
+
+
+            <!-- BASKETBALL -->
+
+            <a
+                href="basketball-math/index.html"
+                class="game-card basketball-card"
+                data-name="basketball math">
+
+                <div class="game-icon">
+
+                    🏀
+
+                </div>
+
+                <div class="game-name">
+
+                    Basketball Math
+
+                </div>
+
+                <div class="game-description">
+
+                    Shoot the Correct Answer!
+
+                </div>
+
+            </a>
+
+
+
+            <!-- BODMAS -->
+
+            <a
+                href="bodmas/index.html"
+                class="game-card bodmas-card"
+                data-name="bodmas">
+
+                <div class="game-icon">
+
+                    🧠
+
+                </div>
+
+                <div class="game-name">
+
+                    BODMAS
+
+                </div>
+
+                <div class="game-description">
+
+                    Master Order of Operations
+
+                </div>
+
+            </a>
+
+
+
+            <!-- DIVISION -->
+
+            <a
+                href="/games/division/index.html"
+                class="game-card division-card"
+                data-name="division">
+
+                <div class="game-icon">
+
+                    ➗
+
+                </div>
+
+                <div class="game-name">
+
+                    Division
+
+                </div>
+
+                <div class="game-description">
+
+                    Become a Division Star!
+
+                </div>
+
+            </a>
+
+
+
+            <!-- MULTIPLICATION -->
+
+            <a
+                href="/games/multiplication/index.html"
+                class="game-card multiplication-card"
+                data-name="multiplication">
+
+                <div class="game-icon">
+
+                    ✖️
+
+                </div>
+
+                <div class="game-name">
+
+                    Multiplication
+
+                </div>
+
+                <div class="game-description">
+
+                    Learn Your Times Tables
+
+                </div>
+
+            </a>
+
+
+
+            <!-- SUBTRACTION -->
+
+            <a
+                href="/games/subtraction/index.html"
+                class="game-card subtraction-card"
+                data-name="subtraction">
+
+                <div class="game-icon">
+
+                    ➖
+
+                </div>
+
+                <div class="game-name">
+
+                    Subtraction
+
+                </div>
+
+                <div class="game-description">
+
+                    Practice Subtraction Skills
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <div class="footer">
+
+            🌟 Keep Learning • Keep Playing •
+            Become a Math Champion! 🏆
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         RIGHT SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="sidebar-title">
+
+            🎮 Kids Games
+
+        </div>
+
+
+
+        <!-- GRADES -->
+
+        <div class="grades">
+
+
+            <a
+                href="#"
+                class="grade">
+
+                K
+
+            </a>
+
+
+            <a
+                href="#"
+                class="grade">
+
+                1
+
+            </a>
+
+
+            <a
+                href="#"
+                class="grade">
+
+                2
+
+            </a>
+
+
+            <a
+                href="#"
+                class="grade">
+
+                3
+
+            </a>
+
+
+            <a
+                href="#"
+                class="grade">
+
+                4
+
+            </a>
+
+
+            <a
+                href="#"
+                class="grade">
+
+                5
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- COLORFUL NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <a
+                href="/math/index.html"
+                class="nav-btn math">
+
+                🧮 Math
+
+            </a>
+
+
+            <a
+                href="/reading/index.html"
+                class="nav-btn reading">
+
+                📚 Reading
+
+            </a>
+
+
+            <a
+                href="/word/index.html"
+                class="nav-btn word">
+
+                🔤 Word
+
+            </a>
+
+
+            <a
+                href="/lab/index.html"
+                class="nav-btn lab">
+
+                🔬 Lab
+
+            </a>
+
+
+            <a
+                href="/puzzles/index.html"
+                class="nav-btn puzzles">
+
+                🧩 Puzzles
+
+            </a>
+
+
+            <a
+                href="/stories/index.html"
+                class="nav-btn stories">
+
+                📖 Stories
+
+            </a>
+
+
+            <a
+                href="/elearn/index.html"
+                class="nav-btn elearn">
+
+                💻 eLearn
+
+            </a>
+
+
+            <a
+                href="/quiz/index.html"
+                class="nav-btn quiz">
+
+                ❓ Quiz
+
+            </a>
+
+
+            <a
+                href="/work/index.html"
+                class="nav-btn work">
+
+                ✏️ Work
+
+            </a>
+
+
+            <a
+                href="/paint/index.html"
+                class="nav-btn paint">
+
+                🎨 Paint
+
+            </a>
+
+
+            <a
+                href="/tools/index.html"
+                class="nav-btn tools">
+
+                🛠️ Tools
+
+            </a>
+
+
+            <a
+                href="/skills/index.html"
+                class="nav-btn skills">
+
+                ⭐ Skills
+
+            </a>
+
+
+        </nav>
+
+
+    </aside>
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   SEARCH GAMES
+===================================================== */
+
+function searchGames() {
+
+    const search =
+        document
+        .getElementById("searchBox")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const cards =
+        document
+        .querySelectorAll(".game-card");
+
+
+    cards.forEach(card => {
+
+        const name =
+            card
+            .getAttribute("data-name");
+
+
+        if (
+            search === "" ||
+            name.includes(search)
+        ) {
+
+            card.style.display =
+                "flex";
+
+        }
+
+        else {
+
+            card.style.display =
+                "none";
+
+        }
+
+    });
+
+}
+
+
+/* Search using Enter key */
+
+document
+    .getElementById("searchBox")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                searchGames();
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
